@@ -1,9 +1,8 @@
-function checkStringLength (string, maxLength){
-  return string.length <= maxLength;
-}
+const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
+checkStringLength('string',5);
 
-function isStringPalindrom(string){
+const isStringPalindrom = (string) => {
 
   const NORMAL_STRING = string.replaceAll(' ','').toLowerCase();
 
@@ -15,10 +14,12 @@ function isStringPalindrom(string){
 
   return NORMAL_STRING === reverseString;
 
-}
+};
+
+isStringPalindrom('totot');
 
 
-function getPositiveInteger(string){
+const getPositiveInteger = (string) => {
 
   const WORK_STRING = string.toString();
 
@@ -35,6 +36,7 @@ function getPositiveInteger(string){
   }
 
   return parseInt(resultString, 10);
-}
+};
 
+getPositiveInteger('test 2023');
 
