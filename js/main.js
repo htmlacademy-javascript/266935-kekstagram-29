@@ -20,6 +20,8 @@ const COMMENTS = [
 
 const SIMILAR_DESCRIPTIONS_COUNT = 25;
 const MAX_COMMENTS_AMOUNT = 30;
+const MIN_LIKE_AMOUNT = 15;
+const MAX_LIKE_AMOUNT = 200;
 
 const getRandomInteger = (a,b) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -61,7 +63,7 @@ function createRandomIDFromRangeGenerator (min, max) {
 
 const generateDescriptionID = createIdGenerator();
 const generateURLID = createIdGenerator();
-const generateCommentID = createRandomIDFromRangeGenerator(1, 750);
+const generateCommentID = createRandomIDFromRangeGenerator(1, SIMILAR_DESCRIPTIONS_COUNT * MAX_COMMENTS_AMOUNT);
 
 const createComment = () => ({
   id: generateCommentID(),
@@ -74,11 +76,11 @@ const createDescription = () => ({
   id: generateDescriptionID(),
   url: `photos/${generateURLID()}.jpg`,
   description: 'тестовый объект',
-  likes: getRandomInteger(15, 200),
+  likes: getRandomInteger(MIN_LIKE_AMOUNT, MAX_LIKE_AMOUNT),
   comments: Array.from({length: getRandomInteger(0, MAX_COMMENTS_AMOUNT)},createComment),
 });
 
-const similarDescriptions = Array.from({length: SIMILAR_DESCRIPTIONS_COUNT}, createDescription);
-console.log(similarDescriptions);
+const similarDescriptions = () => Array.from({length: SIMILAR_DESCRIPTIONS_COUNT}, createDescription);
+similarDescriptions();
 
 
