@@ -1,3 +1,3 @@
-import { similarDescriptions } from './data.js';
+import './draw_mini.js';
 
-similarDescriptions();
+
