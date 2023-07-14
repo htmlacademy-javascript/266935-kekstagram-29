@@ -1,3 +1,5 @@
 import { similarDescriptions } from './data.js';
+import { renderThumbnails } from './thumbnail.js';
 
-similarDescriptions();
+
+renderThumbnails(similarDescriptions());
