@@ -38,8 +38,11 @@ const validateHashtagSimbols = (value) => {
   }
   const hashtags = value.trim().split(' ');
   for (let i = 0; i < hashtags.length; i++){
-    return HASTAG_REGEXP.test(hashtags[i]);
+    if (!HASTAG_REGEXP.test(hashtags[i])){
+      return false;
+    }
   }
+  return true;
 };
 
 const validateHashtagsRepeat = (value) => {
@@ -48,7 +51,7 @@ const validateHashtagsRepeat = (value) => {
   }
   const hashtags = value.trim().split(' ');
   for(let i = 0; i < hashtags.length - 1; i++){
-    for (let j = 1; j < hashtags.length; j++){
+    for (let j = i + 1; j < hashtags.length; j++){
       if (hashtags[i].toLowerCase() === hashtags[j].toLowerCase()){
         return false;
       }
