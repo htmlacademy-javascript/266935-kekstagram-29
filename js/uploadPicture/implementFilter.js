@@ -52,7 +52,7 @@ const effectSliderElement = document.querySelector('.effect-level__slider');
 const effectValueELement = document.querySelector('.effect-level__value');
 const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
 const effectsListElement = document.querySelector('.effects__list');
-const imgUploadEffectElement = document.querySelector('.img-upload__effect-level');
+//const imgUploadEffectElement = document.querySelector('.img-upload__effect-level');
 
 noUiSlider.create(effectSliderElement, {
   range: {
