@@ -1,9 +1,11 @@
-import { isEscape } from './util.js';
+import { isEscape } from '../util.js';
+import './changeScale.js';
+import './implementFilter.js';
+
 
 const HASTAG_REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASHTAG_MAX_AMOUNT = 5;
 const DESCRIPTION_MAX_LENGTH = 140;
-
 const DESCRIPTION_MAXLENGTH_ERROR = 'Не более 140 символов';
 const MAXCOUNT_HASHTAGS_ERROR = 'Не более 5 хэштэгов';
 const SIMILAR_HASHTAGS_ERROR = 'Хэштеги не могут повторяться';
