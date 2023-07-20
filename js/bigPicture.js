@@ -28,12 +28,22 @@ const generateComments = (comments, loadCounter = 1) => {
   }
 };
 
+let onShowMoreClick;
+
+const getShowMoreHandler = (comments) => {
+  let counter = 1;
+  return () => {
+    counter++;
+    generateComments(comments, counter);
+  };
+};
 
 const closeBigPicture = () => {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   closeBigPictureButtonElement.removeEventListener('click', closeBigPicture);
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentLoaderElement.removeEventListener('click', onShowMoreClick);
 };
 
 function onDocumentKeydown (evt) {
@@ -59,12 +69,8 @@ const showBigPicture = (picture) => {
 
   document.addEventListener('keydown', onDocumentKeydown);
 
-  let counter = 1;
-  commentLoaderElement.addEventListener('click', () => {
-    counter++;
-    generateComments(picture.comments, counter);
-  });
-
+  onShowMoreClick = getShowMoreHandler(picture.comments);
+  commentLoaderElement.addEventListener('click', onShowMoreClick);
 };
 
 export { showBigPicture };
