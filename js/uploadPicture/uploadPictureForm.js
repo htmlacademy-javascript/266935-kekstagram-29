@@ -18,15 +18,15 @@ const closePictureFormElement = document.querySelector('.img-upload__cancel');
 const hashtagsElement = document.querySelector('.text__hashtags');
 const commentsElement = document.querySelector('.text__description');
 
+const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
+const effectSliderContainerElement = document.querySelector('.img-upload__effect-level');
+
 const validateForm = new Pristine(uploadPictureFormElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
 });
 
 const validateHashtagsAmount = (value) => {
-  if (value.length === 0) {
-    return true;
-  }
   const hashtags = value.trim().split(' ');
   if (hashtags.length > HASHTAG_MAX_AMOUNT){
     return false;
@@ -48,9 +48,6 @@ const validateHashtagSimbols = (value) => {
 };
 
 const validateHashtagsRepeat = (value) => {
-  if (value.length === 0) {
-    return true;
-  }
   const hashtags = value.trim().split(' ');
   for(let i = 0; i < hashtags.length - 1; i++){
     for (let j = i + 1; j < hashtags.length; j++){
@@ -62,12 +59,7 @@ const validateHashtagsRepeat = (value) => {
   return true;
 };
 
-const validateComments = (value) => {
-  if (value.length === 0) {
-    return true;
-  }
-  return value.length <= DESCRIPTION_MAX_LENGTH;
-};
+const validateComments = (value) => value.length <= DESCRIPTION_MAX_LENGTH;
 
 validateForm.addValidator(hashtagsElement, validateHashtagSimbols, CORRECT_HASHTAG_ERROR);
 validateForm.addValidator(hashtagsElement, validateHashtagsAmount, MAXCOUNT_HASHTAGS_ERROR);
@@ -83,11 +75,14 @@ uploadPictureFormElement.addEventListener('submit', (evt) => {
 const onUploadPictureChange = () => {
   editPictureFormElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  effectSliderContainerElement.classList.add('hidden');
 };
 
 const onClosePictureForm = () => {
   editPictureFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  uploadImagePreviewElement.style.transform = 'scale(1)';
+  uploadImagePreviewElement.style.filter = '';
   uploadPictureElement.value = '';
 };
 
@@ -99,9 +94,7 @@ function onDocumentKeydown (evt) {
 }
 
 uploadPictureElement.addEventListener('change', onUploadPictureChange);
-
 closePictureFormElement.addEventListener('click', onClosePictureForm);
-
 document.addEventListener('keydown', onDocumentKeydown);
 
 
