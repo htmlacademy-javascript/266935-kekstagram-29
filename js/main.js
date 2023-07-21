@@ -1,7 +1,10 @@
-import { similarDescriptions } from './data.js';
 import { renderThumbnails } from './thumbnail.js';
 
 import './uploadPicture/uploadPictureForm.js';
 
+fetch('https://29.javascript.pages.academy/kekstagram/data')
+  .then((response) => response.json())
+  .then((photos) => {
+    renderThumbnails(photos);
+  });
 
-renderThumbnails(similarDescriptions());

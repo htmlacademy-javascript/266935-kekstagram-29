@@ -28,6 +28,14 @@ const onBiggerScale = () => {
   }
 };
 
+const DefaultPreviewScaleHandler = () => {
+  uploadImagePreviewElement.style.transform = 'scale(1)';
+};
 
-scaleSmallerElement.addEventListener('click', onSmallerScale);
-scaleBiggerElement.addEventListener('click', onBiggerScale);
+const scaleSmallerHandler = () => scaleSmallerElement.addEventListener('click', onSmallerScale);
+const scaleSmallerHandlerRemove = () => scaleSmallerElement.removeEventListener('click', onSmallerScale);
+const scaleBiggerHandler = () => scaleBiggerElement.addEventListener('click', onBiggerScale);
+const scaleBiggerHandlerRemove = () => scaleBiggerElement.removeEventListener('click', onBiggerScale);
+
+
+export { scaleBiggerHandler, scaleSmallerHandler, scaleSmallerHandlerRemove, scaleBiggerHandlerRemove, DefaultPreviewScaleHandler};
