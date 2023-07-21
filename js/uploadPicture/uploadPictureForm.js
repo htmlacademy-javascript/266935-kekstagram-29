@@ -2,6 +2,7 @@ import { isEscape } from '../util.js';
 import { scaleBiggerHandler, scaleSmallerHandler, scaleBiggerHandlerRemove, scaleSmallerHandlerRemove, DefaultPreviewScaleHandler} from './changeScale.js';
 import { addValidatorsPristine, validateFormPristine, resetValidatorsPristine } from './addValidators.js';
 import './implementFilter.js';
+import { createErrorMessage, createSuccessMessage} from './createMessages.js';
 
 const uploadPictureFormElement = document.querySelector('.img-upload__form');
 const uploadPictureElement = document.querySelector('.img-upload__input');
@@ -10,6 +11,15 @@ const closePictureFormElement = document.querySelector('.img-upload__cancel');
 
 const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
 const effectSliderContainerElement = document.querySelector('.img-upload__effect-level');
+
+const onSuccessMessage = () =>{
+  createSuccessMessage();
+  onClosePictureForm();
+};
+
+const onErrorMessage = () => {
+  createErrorMessage();
+};
 
 const onUploadPictureForm = (evt) => {
   evt.preventDefault();
@@ -21,7 +31,7 @@ const onUploadPictureForm = (evt) => {
         method: 'POST',
         body: formData,
       },
-    ).then(onClosePictureForm)
+    ).then(onSuccessMessage)
       .catch((err) => {
         console.log(err);
       });
