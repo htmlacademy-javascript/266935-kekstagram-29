@@ -44,6 +44,7 @@ const onUploadPictureChange = () => {
   effectSliderContainerElement.classList.add('hidden');
   closePictureFormElement.addEventListener('click', onClosePictureForm);
   document.addEventListener('keydown', onDocumentKeydown);
+  uploadPictureFormElement.addEventListener('submit', onUploadPictureForm);
   addValidatorsPristine();
   scaleBiggerHandler();
   scaleSmallerHandler();
@@ -68,5 +69,6 @@ function onDocumentKeydown (evt) {
   }
 }
 
-uploadPictureElement.addEventListener('change', onUploadPictureChange);
-uploadPictureFormElement.addEventListener('submit', onUploadPictureForm);
+const setFormAction = () => uploadPictureElement.addEventListener('change', onUploadPictureChange);
+
+export { setFormAction };

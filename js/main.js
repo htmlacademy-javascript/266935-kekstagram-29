@@ -1,6 +1,5 @@
 import { renderThumbnails } from './thumbnail.js';
-
-import './uploadPicture/uploadPictureForm.js';
+import { setFormAction } from './uploadPicture/uploadPictureForm.js';
 
 fetch('https://29.javascript.pages.academy/kekstagram/data')
   .then((response) => response.json())
@@ -8,3 +7,4 @@ fetch('https://29.javascript.pages.academy/kekstagram/data')
     renderThumbnails(photos);
   });
 
+setFormAction();
