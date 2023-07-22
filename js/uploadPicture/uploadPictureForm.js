@@ -2,43 +2,43 @@ import { isEscape } from '../util.js';
 import { scaleBiggerHandler, scaleSmallerHandler, scaleBiggerHandlerRemove, scaleSmallerHandlerRemove, DefaultPreviewScaleHandler} from './changeScale.js';
 import { addValidatorsPristine, validateFormPristine, resetValidatorsPristine } from './addValidators.js';
 import './implementFilter.js';
-import { createErrorMessage, createSuccessMessage} from './createMessages.js';
+import { sendData } from '../api.js';
+
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...',
+};
 
 const uploadPictureFormElement = document.querySelector('.img-upload__form');
 const uploadPictureElement = document.querySelector('.img-upload__input');
 const editPictureFormElement = document.querySelector('.img-upload__overlay');
 const closePictureFormElement = document.querySelector('.img-upload__cancel');
+const submitButtonElement = document.querySelector('.img-upload__submit');
 
 const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
 const effectSliderContainerElement = document.querySelector('.img-upload__effect-level');
 
-const onSuccessMessage = () =>{
-  createSuccessMessage();
-  onClosePictureForm();
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = SubmitButtonText.SENDING;
 };
 
-const onErrorMessage = () => {
-  createErrorMessage();
+const unblockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = SubmitButtonText.IDLE;
 };
 
 const onUploadPictureForm = (evt) => {
   evt.preventDefault();
   if (validateFormPristine()){
+    blockSubmitButton();
     const formData = new FormData(evt.target);
-    fetch(
-      'https://29.javascript.pages.academy/kekstagram ',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    ).then(onSuccessMessage)
-      .catch((err) => {
-        console.log(err);
-      });
+    sendData(formData);
   }
 };
 
 const onUploadPictureChange = () => {
+  //uploadImagePreviewElement.src = uploadPictureElement.value;
   editPictureFormElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   effectSliderContainerElement.classList.add('hidden');
@@ -57,13 +57,15 @@ function onClosePictureForm () {
   uploadImagePreviewElement.style.filter = '';
   uploadPictureElement.value = '';
   uploadPictureFormElement.removeEventListener('submit', onUploadPictureForm);
+  document.removeEventListener('keydown', onDocumentKeydown);
   scaleBiggerHandlerRemove();
   scaleSmallerHandlerRemove();
   resetValidatorsPristine();
 }
 
 function onDocumentKeydown (evt) {
-  if(isEscape(evt) && !evt.target.closest('.img-upload__field-wrapper')){
+  if(isEscape(evt) && !evt.target.closest('.img-upload__field-wrapper') &&
+  !(document.body.querySelector('.error') || document.body.querySelector('.success'))){
     evt.preventDefault();
     onClosePictureForm();
   }
@@ -71,4 +73,4 @@ function onDocumentKeydown (evt) {
 
 const setFormAction = () => uploadPictureElement.addEventListener('change', onUploadPictureChange);
 
-export { setFormAction };
+export { setFormAction, unblockSubmitButton };
