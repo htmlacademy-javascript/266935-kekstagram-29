@@ -1,6 +1,6 @@
-const MAX_SCALE = '100%';
-const MIN_SCALE = '25%';
-const STEP_SCALE = '25%';
+const MAX_SCALE = 100;
+const MIN_SCALE = 25;
+const STEP_SCALE = 25;
 
 const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
 
@@ -16,20 +16,21 @@ const changeSize = (percentSize) => {
 
 const onSmallerScale = () => {
   if (scaleValueElement.value !== MIN_SCALE){
-    const percentSize = parseInt(scaleValueElement.value, 10) - parseInt(STEP_SCALE, 10);
+    const percentSize = parseInt(scaleValueElement.value, 10) - STEP_SCALE;
     changeSize(percentSize);
   }
 };
 
 const onBiggerScale = () => {
   if (scaleValueElement.value !== MAX_SCALE){
-    const percentSize = parseInt(scaleValueElement.value, 10) + parseInt(STEP_SCALE, 10);
+    const percentSize = parseInt(scaleValueElement.value, 10) + STEP_SCALE;
     changeSize(percentSize);
   }
 };
 
 const DefaultPreviewScaleHandler = () => {
   uploadImagePreviewElement.style.transform = 'scale(1)';
+  scaleValueElement.value = '100%';
 };
 
 const scaleSmallerHandler = () => scaleSmallerElement.addEventListener('click', onSmallerScale);
