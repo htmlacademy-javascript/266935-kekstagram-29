@@ -59,5 +59,10 @@ const addValidatorsPristine = () => {
 
 const validateFormPristine = () => validateForm.validate();
 const resetValidatorsPristine = () => validateForm.reset();
+const destroyValidatorPristine = () => validateForm.destroy();
+const resetFields = () => {
+  hashtagsElement.value = '';
+  commentsElement.value = '';
+};
 
-export { addValidatorsPristine, validateFormPristine, resetValidatorsPristine};
+export { addValidatorsPristine, validateFormPristine, resetValidatorsPristine, destroyValidatorPristine, resetFields};
