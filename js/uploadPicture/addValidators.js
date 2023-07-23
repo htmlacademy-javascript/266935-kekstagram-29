@@ -44,6 +44,7 @@ const validateHashtagsRepeat = (value) => {
 };
 
 const validateComments = (value) => value.length <= DESCRIPTION_MAX_LENGTH;
+
 let validateForm;
 
 const addValidatorsPristine = () => {

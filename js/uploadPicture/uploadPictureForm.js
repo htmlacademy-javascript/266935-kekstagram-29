@@ -32,7 +32,6 @@ const onUploadPictureForm = (evt) => {
   evt.preventDefault();
   if (validateFormPristine()){
     blockSubmitButton();
-    console.log(submitButtonElement.textContent);
     const formData = new FormData(evt.target);
     sendData(formData);
   }
