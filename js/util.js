@@ -40,6 +40,14 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 const isEscape = (evt) => evt.key === 'Escape';
 
-export { createRandomMassive, isEscape, showAlert};
+export { createRandomMassive, isEscape, showAlert, debounce};

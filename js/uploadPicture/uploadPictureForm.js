@@ -56,7 +56,6 @@ function closePictureForm () {
   document.body.classList.remove('modal-open');
   DefaultPreviewScaleHandler();
   uploadPictureElement.value = '';
-  uploadPictureFormElement.removeEventListener('submit', onUploadPictureForm);
   document.removeEventListener('keydown', onDocumentKeydown);
   resetEffects();
   effectChangeHandlerRemove();

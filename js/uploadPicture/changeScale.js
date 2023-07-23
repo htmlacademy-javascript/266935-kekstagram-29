@@ -15,14 +15,14 @@ const changeSize = (percentSize) => {
 };
 
 const onSmallerScale = () => {
-  if (scaleValueElement.value !== MIN_SCALE){
+  if (parseInt(scaleValueElement.value,10) > MIN_SCALE){
     const percentSize = parseInt(scaleValueElement.value, 10) - STEP_SCALE;
     changeSize(percentSize);
   }
 };
 
 const onBiggerScale = () => {
-  if (scaleValueElement.value !== MAX_SCALE){
+  if (parseInt(scaleValueElement.value,10) < MAX_SCALE){
     const percentSize = parseInt(scaleValueElement.value, 10) + STEP_SCALE;
     changeSize(percentSize);
   }

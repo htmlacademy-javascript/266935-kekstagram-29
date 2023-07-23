@@ -1,16 +1,19 @@
 import { getData } from './api.js';
 import { renderThumbnails } from './thumbnail.js';
-import { showAlert } from './util.js';
+import { showAlert, debounce } from './util.js';
 import { setFilterClick } from './filters.js';
 
 const imgFilterElement = document.querySelector('.img-filters');
+const RENDER_DELAY = 500;
 
 const renderMini = () =>{
   getData()
     .then((photos) => {
       imgFilterElement.classList.remove('img-filters--inactive');
       renderThumbnails(photos);
-      setFilterClick(() => renderThumbnails(photos));
+      setFilterClick(debounce(
+        () => renderThumbnails(photos),
+        RENDER_DELAY));
     })
     .catch((err) => {
       showAlert(err);

@@ -29,12 +29,14 @@ const onCloseSuccessMessage = (evt) => {
 
 const onClickOutsideError = (evt) => {
   if(evt.target !== errorTemplateElement){
+    evt.preventDefault();
     closeErrorMessage();
   }
 };
 
 const onClickOutsideSuccess = (evt) => {
   if(evt.target !== successTemplateElement){
+    evt.preventDefault();
     closeSuccessMessage();
   }
 };

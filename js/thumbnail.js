@@ -40,7 +40,7 @@ const implementFilter = (pictures, filter) => {
       return getRandomPicture(pictures);
 
     case 'filter-discussed':
-      return pictures.slice().sort(compareCommentsAmount).slice(0,10);
+      return pictures.slice().sort(compareCommentsAmount);
 
   }
 };
