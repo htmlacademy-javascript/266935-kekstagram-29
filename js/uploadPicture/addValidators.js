@@ -44,13 +44,13 @@ const validateHashtagsRepeat = (value) => {
 };
 
 const validateComments = (value) => value.length <= DESCRIPTION_MAX_LENGTH;
-
-const validateForm = new Pristine(uploadPictureFormElement, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-});
+let validateForm;
 
 const addValidatorsPristine = () => {
+  validateForm = new Pristine(uploadPictureFormElement, {
+    classTo: 'img-upload__field-wrapper',
+    errorTextParent: 'img-upload__field-wrapper',
+  });
   validateForm.addValidator(hashtagsElement, validateHashtagSimbols, CORRECT_HASHTAG_ERROR);
   validateForm.addValidator(hashtagsElement, validateHashtagsAmount, MAXCOUNT_HASHTAGS_ERROR);
   validateForm.addValidator(hashtagsElement, validateHashtagsRepeat, SIMILAR_HASHTAGS_ERROR);
@@ -59,10 +59,9 @@ const addValidatorsPristine = () => {
 
 const validateFormPristine = () => validateForm.validate();
 const resetValidatorsPristine = () => validateForm.reset();
-const destroyValidatorPristine = () => validateForm.destroy();
 const resetFields = () => {
   hashtagsElement.value = '';
   commentsElement.value = '';
 };
 
-export { addValidatorsPristine, validateFormPristine, resetValidatorsPristine, destroyValidatorPristine, resetFields};
+export { addValidatorsPristine, validateFormPristine, resetValidatorsPristine, resetFields};

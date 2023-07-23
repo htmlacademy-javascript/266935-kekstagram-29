@@ -1,6 +1,6 @@
 import { isEscape } from '../util.js';
 import { scaleBiggerHandler, scaleSmallerHandler, scaleBiggerHandlerRemove, scaleSmallerHandlerRemove, DefaultPreviewScaleHandler} from './changeScale.js';
-import { addValidatorsPristine, validateFormPristine, resetValidatorsPristine, destroyValidatorPristine, resetFields } from './addValidators.js';
+import { addValidatorsPristine, validateFormPristine, resetValidatorsPristine, resetFields } from './addValidators.js';
 import {effectChangeHandler, effectChangeHandlerRemove, resetEffects } from './implementFilter.js';
 import { sendData } from '../api.js';
 
