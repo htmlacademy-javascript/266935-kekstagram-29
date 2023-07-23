@@ -34,12 +34,12 @@ const sendData = (formData) => {
     } else {
       createSuccessMessage();
       closePictureForm();
+      unblockSubmitButton();
     }
   })
     .catch(() => {
       createErrorMessage();
-    })
-    .finally(unblockSubmitButton());
+    });
 };
 
 export { getData, sendData };

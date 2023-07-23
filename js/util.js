@@ -7,17 +7,16 @@ const getRandomInteger = (a,b) => {
   return Math.floor(result);
 };
 
-const createRandomIDFromRangeGenerator = (min, max) => {
-  const previousValues = [];
-
-  return function () {
+const createRandomMassive = (min, max, length) => {
+  const massive = [];
+  for (let i = 0; i < length; i++){
     let currentValue = getRandomInteger(min, max);
-    while(previousValues.includes(currentValue)){
+    while(massive.includes(currentValue)){
       currentValue = getRandomInteger(min, max);
     }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
+    massive.push(currentValue);
+  }
+  return massive;
 };
 
 const showAlert = (message) => {
@@ -41,6 +40,14 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 const isEscape = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, createRandomIDFromRangeGenerator, isEscape, showAlert};
+export { createRandomMassive, isEscape, showAlert, debounce};
