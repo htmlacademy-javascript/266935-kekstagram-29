@@ -35,7 +35,6 @@ function onClickOutsideSuccess (evt) {
 function closeSuccessMessage () {
   successMessage.remove();
   successMessage = '';
-  unblockSubmitButton();
   document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onClickOutsideSuccess);
   closeSuccessMessageElement.addEventListener('click', onCloseSuccessMessage);

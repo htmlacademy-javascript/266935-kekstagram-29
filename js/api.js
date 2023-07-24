@@ -15,7 +15,6 @@ const getData = () =>
       if(!response.ok){
         throw new Error();
       }
-      unblockSubmitButton();
       return response.json();
     })
     .catch(() => {
@@ -34,6 +33,7 @@ const sendData = (formData) => {
       createErrorMessage();
     } else {
       createSuccessMessage();
+      unblockSubmitButton();
       closePictureForm();
     }
   })

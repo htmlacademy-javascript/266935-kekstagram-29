@@ -14,6 +14,7 @@ const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const uploadPictureFormElement = document.querySelector('.img-upload__form');
 const uploadPictureElement = document.querySelector('.img-upload__input');
 const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
+const effectPreviewElements = document.querySelectorAll('.effects__preview');
 const editPictureFormElement = document.querySelector('.img-upload__overlay');
 const closePictureFormElement = document.querySelector('.img-upload__cancel');
 const submitButtonElement = document.querySelector('.img-upload__submit');
@@ -31,9 +32,9 @@ const unblockSubmitButton = () => {
 
 const onUploadPictureForm = (evt) => {
   evt.preventDefault();
-  blockSubmitButton();
   addValidatorsPristine();
   if (validateFormPristine()){
+    blockSubmitButton();
     resetValidatorsPristine();
     const formData = new FormData(evt.target);
     sendData(formData);
@@ -45,7 +46,11 @@ const addImage = () => {
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((ext) => fileName.endsWith(ext));
   if (matches){
-    uploadImagePreviewElement.src = URL.createObjectURL(file);
+    const fileURL = URL.createObjectURL(file);
+    uploadImagePreviewElement.src = fileURL;
+    effectPreviewElements.forEach((preview) => {
+      preview.style.backgroundImage = `url(${fileURL})`;
+    });
   }
 };
 
