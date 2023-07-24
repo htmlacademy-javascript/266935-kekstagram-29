@@ -68,13 +68,10 @@ noUiSlider.create(effectSliderElement, {
   connect: FILTERS_OPTIONS.none.connect,
   format: {
     to: function (value) {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
       return value.toFixed(2);
     },
     from: function (value) {
-      return parseFloat(value).toFixed(2);
+      return parseFloat(value);
     },
   },
 });
@@ -101,7 +98,7 @@ const onEffectChange = (evt) => {
   });
   effectSliderElement.noUiSlider.on('update', () => {
     if (effect !== 'none'){
-      effectValueELement.value = effectSliderElement.noUiSlider.get();
+      effectValueELement.value = `${effectSliderElement.noUiSlider.get()}`;
       pictureForFilters.style.filter = `${effect}(${effectValueELement.value}${unit})`;
     }
   });
