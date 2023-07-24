@@ -53,7 +53,7 @@ const effectSliderElement = document.querySelector('.effect-level__slider');
 
 const effectSliderContainerElement = document.querySelector('.img-upload__effect-level');
 const effectValueELement = document.querySelector('.effect-level__value');
-const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
+let pictureForFilters;
 
 const effectsListElement = document.querySelector('.effects__list');
 
@@ -74,7 +74,7 @@ const onEffectChange = (evt) => {
   if (filter === 'none'){
     effectSliderElement.classList.add('hidden');
     effectSliderContainerElement.classList.add('hidden');
-    uploadImagePreviewElement.style.filter = 'none';
+    pictureForFilters.style.filter = 'none';
     return;
   }else{
     effectSliderElement.classList.remove('hidden');
@@ -91,18 +91,21 @@ const onEffectChange = (evt) => {
   effectSliderElement.noUiSlider.on('update', () => {
     if (effect !== 'none'){
       effectValueELement.value = effectSliderElement.noUiSlider.get();
-      uploadImagePreviewElement.style.filter = `${effect}(${effectValueELement.value}${unit})`;
+      pictureForFilters.style.filter = `${effect}(${effectValueELement.value}${unit})`;
     }
   });
 };
 
 const resetEffects = () => {
-  uploadImagePreviewElement.style.filter = '';
+  pictureForFilters.style.filter = '';
   effectsListElement.querySelector('#effect-none').checked = true;
 };
 
 const effectChangeHandlerRemove = () => effectsListElement.removeEventListener('change', onEffectChange);
-const effectChangeHandler = () => effectsListElement.addEventListener('change', onEffectChange);
+const effectChangeHandler = (picture) => {
+  pictureForFilters = picture;
+  effectsListElement.addEventListener('change', onEffectChange);
+};
 
 export { effectChangeHandler, effectChangeHandlerRemove, resetEffects };
 

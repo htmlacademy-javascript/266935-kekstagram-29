@@ -31,10 +31,10 @@ const unblockSubmitButton = () => {
 
 const onUploadPictureForm = (evt) => {
   evt.preventDefault();
+  blockSubmitButton();
   addValidatorsPristine();
   if (validateFormPristine()){
     resetValidatorsPristine();
-    blockSubmitButton();
     const formData = new FormData(evt.target);
     sendData(formData);
   }
@@ -54,11 +54,10 @@ const onUploadPictureChange = () => {
   editPictureFormElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   effectSliderContainerElement.classList.add('hidden');
-  effectChangeHandler();
+  effectChangeHandler(uploadImagePreviewElement);
   closePictureFormElement.addEventListener('click', closePictureForm);
   document.addEventListener('keydown', onDocumentKeydown);
   uploadPictureFormElement.addEventListener('submit', onUploadPictureForm);
-  //addValidatorsPristine();
   scaleBiggerHandler();
   scaleSmallerHandler();
 };

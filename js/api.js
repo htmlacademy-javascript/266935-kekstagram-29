@@ -1,6 +1,6 @@
 import { createErrorMessage, createSuccessMessage } from './uploadPicture/createMessages.js';
 import { closePictureForm } from './uploadPicture/uploadPictureForm.js';
-
+import { unblockSubmitButton } from './uploadPicture/uploadPictureForm.js';
 
 const BASE_URL = 'https://29.javascript.pages.academy/kekstagram';
 const Route = {
@@ -15,6 +15,7 @@ const getData = () =>
       if(!response.ok){
         throw new Error();
       }
+      unblockSubmitButton();
       return response.json();
     })
     .catch(() => {
