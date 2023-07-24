@@ -4,7 +4,7 @@ const FILTERS_OPTIONS = {
     min: 0,
     max: 1,
     start: 1,
-    step: 0.1,
+    step: 0.10,
     unit: '',
   },
   sepia: {
@@ -43,7 +43,7 @@ const FILTERS_OPTIONS = {
     effect: 'none',
     min: 0,
     max: 1,
-    start: 0.5,
+    start: 0.50,
     step: 0.1,
     connect: 'lower',
   }
@@ -66,6 +66,17 @@ noUiSlider.create(effectSliderElement, {
   start: FILTERS_OPTIONS.none.start,
   step: FILTERS_OPTIONS.none.step,
   connect: FILTERS_OPTIONS.none.connect,
+  format: {
+    to: function (value) {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(2);
+    },
+    from: function (value) {
+      return parseFloat(value).toFixed(2);
+    },
+  },
 });
 
 const onEffectChange = (evt) => {
