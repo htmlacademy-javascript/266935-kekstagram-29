@@ -1,4 +1,5 @@
 import { isEscape } from '../util.js';
+import { unblockSubmitButton } from './uploadPictureForm.js';
 const errorTemplateElement = document.querySelector('#error').content.querySelector('.error');
 const closeErrorMessageElement = errorTemplateElement.querySelector('.error__button');
 const successTemplateElement = document.querySelector('#success').content.querySelector('.success');
@@ -34,6 +35,7 @@ function onClickOutsideSuccess (evt) {
 function closeSuccessMessage () {
   successMessage.remove();
   successMessage = '';
+  unblockSubmitButton();
   document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onClickOutsideSuccess);
   closeSuccessMessageElement.addEventListener('click', onCloseSuccessMessage);
@@ -42,6 +44,7 @@ function closeSuccessMessage () {
 function closeErrorMessage () {
   errorMessage.remove();
   errorMessage = '';
+  unblockSubmitButton();
   document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onClickOutsideError);
   closeErrorMessageElement.addEventListener('click', onCloseErrorMessage);

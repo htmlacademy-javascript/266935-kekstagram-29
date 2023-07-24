@@ -31,7 +31,9 @@ const unblockSubmitButton = () => {
 
 const onUploadPictureForm = (evt) => {
   evt.preventDefault();
+  addValidatorsPristine();
   if (validateFormPristine()){
+    resetValidatorsPristine();
     blockSubmitButton();
     const formData = new FormData(evt.target);
     sendData(formData);
@@ -56,14 +58,14 @@ const onUploadPictureChange = () => {
   closePictureFormElement.addEventListener('click', closePictureForm);
   document.addEventListener('keydown', onDocumentKeydown);
   uploadPictureFormElement.addEventListener('submit', onUploadPictureForm);
-  addValidatorsPristine();
+  //addValidatorsPristine();
   scaleBiggerHandler();
   scaleSmallerHandler();
 };
 
 function closePictureForm () {
   resetFields();
-  resetValidatorsPristine();
+  //resetValidatorsPristine();
   editPictureFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   DefaultPreviewScaleHandler();

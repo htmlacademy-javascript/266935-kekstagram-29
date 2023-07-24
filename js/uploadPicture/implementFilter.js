@@ -40,7 +40,7 @@ const FILTERS_OPTIONS = {
     unit: '',
   },
   none: {
-    effect: '',
+    effect: 'none',
     min: 0,
     max: 1,
     start: 0.5,
@@ -70,14 +70,16 @@ noUiSlider.create(effectSliderElement, {
 
 const onEffectChange = (evt) => {
   const filter = evt.target.value;
+  const {effect, min, max, start, step, unit} = FILTERS_OPTIONS[filter];
   if (filter === 'none'){
     effectSliderElement.classList.add('hidden');
     effectSliderContainerElement.classList.add('hidden');
+    uploadImagePreviewElement.style.filter = 'none';
+    return;
   }else{
     effectSliderElement.classList.remove('hidden');
     effectSliderContainerElement.classList.remove('hidden');
   }
-  const {effect, min, max, start, step, unit} = FILTERS_OPTIONS[filter];
   effectSliderElement.noUiSlider.updateOptions({
     range: {
       min: min,
@@ -87,8 +89,10 @@ const onEffectChange = (evt) => {
     step: step,
   });
   effectSliderElement.noUiSlider.on('update', () => {
-    effectValueELement.value = effectSliderElement.noUiSlider.get();
-    uploadImagePreviewElement.style.filter = `${effect}(${effectValueELement.value}${unit})`;
+    if (effect !== 'none'){
+      effectValueELement.value = effectSliderElement.noUiSlider.get();
+      uploadImagePreviewElement.style.filter = `${effect}(${effectValueELement.value}${unit})`;
+    }
   });
 };
 
