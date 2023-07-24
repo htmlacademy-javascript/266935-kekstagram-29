@@ -59,7 +59,10 @@ const addValidatorsPristine = () => {
 };
 
 const validateFormPristine = () => validateForm.validate();
-const resetValidatorsPristine = () => validateForm.reset();
+const resetValidatorsPristine = () => {
+  validateForm.reset();
+  validateForm.destroy();
+};
 const resetFields = () => {
   hashtagsElement.value = '';
   commentsElement.value = '';

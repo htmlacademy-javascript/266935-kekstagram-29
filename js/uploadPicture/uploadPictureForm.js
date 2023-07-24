@@ -9,13 +9,14 @@ const SubmitButtonText = {
   SENDING: 'Публикую...',
 };
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const uploadPictureFormElement = document.querySelector('.img-upload__form');
 const uploadPictureElement = document.querySelector('.img-upload__input');
+const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
 const editPictureFormElement = document.querySelector('.img-upload__overlay');
 const closePictureFormElement = document.querySelector('.img-upload__cancel');
 const submitButtonElement = document.querySelector('.img-upload__submit');
-
-//const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
 const effectSliderContainerElement = document.querySelector('.img-upload__effect-level');
 
 const blockSubmitButton = () => {
@@ -37,8 +38,17 @@ const onUploadPictureForm = (evt) => {
   }
 };
 
+const addImage = () => {
+  const file = uploadPictureElement.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((ext) => fileName.endsWith(ext));
+  if (matches){
+    uploadImagePreviewElement.src = URL.createObjectURL(file);
+  }
+};
+
 const onUploadPictureChange = () => {
-  //uploadImagePreviewElement.src = uploadPictureElement.value;
+  addImage();
   editPictureFormElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   effectSliderContainerElement.classList.add('hidden');
