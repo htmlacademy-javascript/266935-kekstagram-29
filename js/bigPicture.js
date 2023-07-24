@@ -19,8 +19,7 @@ const generateComments = (comments, loadCounter = 1) => {
     commentItem.querySelector('.social__text').textContent = comments[i].message;
     commentsListElement.append(commentItem);
   }
-  document.querySelector('.social__comment-count').innerHTML = `${i}
-  из <span class="comments-count">${comments.length}</span> комментариев`;
+  document.querySelector('.social__comment-count').innerHTML = `${i} из <span class="comments-count">${comments.length}</span> комментариев`;
   if (i === comments.length) {
     commentLoaderElement.classList.add('hidden');
   }else {

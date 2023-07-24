@@ -1,4 +1,5 @@
 const HASTAG_REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
+const SPLIT_REGEXP = /\s+/;
 const HASHTAG_MAX_AMOUNT = 5;
 const DESCRIPTION_MAX_LENGTH = 140;
 const DESCRIPTION_MAXLENGTH_ERROR = 'Не более 140 символов';
@@ -11,7 +12,7 @@ const hashtagsElement = document.querySelector('.text__hashtags');
 const commentsElement = document.querySelector('.text__description');
 
 const validateHashtagsAmount = (value) => {
-  const hashtags = value.trim().split(' ');
+  const hashtags = value.trim().split(SPLIT_REGEXP);
   if (hashtags.length > HASHTAG_MAX_AMOUNT){
     return false;
   }
@@ -22,7 +23,7 @@ const validateHashtagSimbols = (value) => {
   if (value.length === 0) {
     return true;
   }
-  const hashtags = value.trim().split(' ');
+  const hashtags = value.trim().split(SPLIT_REGEXP);
   for (let i = 0; i < hashtags.length; i++){
     if (!HASTAG_REGEXP.test(hashtags[i])){
       return false;
@@ -32,7 +33,7 @@ const validateHashtagSimbols = (value) => {
 };
 
 const validateHashtagsRepeat = (value) => {
-  const hashtags = value.trim().split(' ');
+  const hashtags = value.trim().split(SPLIT_REGEXP);
   for(let i = 0; i < hashtags.length - 1; i++){
     for (let j = i + 1; j < hashtags.length; j++){
       if (hashtags[i].toLowerCase() === hashtags[j].toLowerCase()){
@@ -59,7 +60,10 @@ const addValidatorsPristine = () => {
 };
 
 const validateFormPristine = () => validateForm.validate();
-const resetValidatorsPristine = () => validateForm.reset();
+const resetValidatorsPristine = () => {
+  validateForm.reset();
+  validateForm.destroy();
+};
 const resetFields = () => {
   hashtagsElement.value = '';
   commentsElement.value = '';

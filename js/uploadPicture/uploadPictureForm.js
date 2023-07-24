@@ -9,13 +9,15 @@ const SubmitButtonText = {
   SENDING: 'Публикую...',
 };
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const uploadPictureFormElement = document.querySelector('.img-upload__form');
 const uploadPictureElement = document.querySelector('.img-upload__input');
+const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
+const effectPreviewElements = document.querySelectorAll('.effects__preview');
 const editPictureFormElement = document.querySelector('.img-upload__overlay');
 const closePictureFormElement = document.querySelector('.img-upload__cancel');
 const submitButtonElement = document.querySelector('.img-upload__submit');
-
-//const uploadImagePreviewElement = document.querySelector('.img-upload__preview img');
 const effectSliderContainerElement = document.querySelector('.img-upload__effect-level');
 
 const blockSubmitButton = () => {
@@ -30,30 +32,44 @@ const unblockSubmitButton = () => {
 
 const onUploadPictureForm = (evt) => {
   evt.preventDefault();
+  addValidatorsPristine();
   if (validateFormPristine()){
     blockSubmitButton();
+    resetValidatorsPristine();
     const formData = new FormData(evt.target);
     sendData(formData);
   }
 };
 
+const addImage = () => {
+  const file = uploadPictureElement.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((ext) => fileName.endsWith(ext));
+  if (matches){
+    const fileURL = URL.createObjectURL(file);
+    uploadImagePreviewElement.src = fileURL;
+    effectPreviewElements.forEach((preview) => {
+      preview.style.backgroundImage = `url(${fileURL})`;
+    });
+  }
+};
+
 const onUploadPictureChange = () => {
-  //uploadImagePreviewElement.src = uploadPictureElement.value;
+  addImage();
   editPictureFormElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   effectSliderContainerElement.classList.add('hidden');
-  effectChangeHandler();
+  effectChangeHandler(uploadImagePreviewElement);
   closePictureFormElement.addEventListener('click', closePictureForm);
   document.addEventListener('keydown', onDocumentKeydown);
   uploadPictureFormElement.addEventListener('submit', onUploadPictureForm);
-  addValidatorsPristine();
   scaleBiggerHandler();
   scaleSmallerHandler();
 };
 
 function closePictureForm () {
   resetFields();
-  resetValidatorsPristine();
+  //resetValidatorsPristine();
   editPictureFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   DefaultPreviewScaleHandler();
