@@ -3,8 +3,10 @@ import { renderThumbnails } from './thumbnail.js';
 import { showAlert, debounce } from './util.js';
 import { setFilterClick } from './filters.js';
 
-const imgFilterElement = document.querySelector('.img-filters');
 const RENDER_DELAY = 500;
+
+const imgFilterElement = document.querySelector('.img-filters');
+
 
 const renderMini = () =>{
   getData()

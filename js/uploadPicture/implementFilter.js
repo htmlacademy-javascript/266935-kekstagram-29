@@ -76,7 +76,7 @@ noUiSlider.create(effectSliderElement, {
   },
 });
 
-const onEffectChange = (evt) => {
+const onChangeEffect = (evt) => {
   const filter = evt.target.value;
   const {effect, min, max, start, step, unit} = FILTERS_OPTIONS[filter];
   if (filter === 'none'){
@@ -109,10 +109,10 @@ const resetEffects = () => {
   effectsListElement.querySelector('#effect-none').checked = true;
 };
 
-const effectChangeHandlerRemove = () => effectsListElement.removeEventListener('change', onEffectChange);
+const effectChangeHandlerRemove = () => effectsListElement.removeEventListener('change', onChangeEffect);
 const effectChangeHandler = (picture) => {
   pictureForFilters = picture;
-  effectsListElement.addEventListener('change', onEffectChange);
+  effectsListElement.addEventListener('change', onChangeEffect);
 };
 
 export { effectChangeHandler, effectChangeHandlerRemove, resetEffects };

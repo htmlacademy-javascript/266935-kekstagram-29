@@ -1,5 +1,5 @@
 import { isEscape } from '../util.js';
-import { scaleBiggerHandler, scaleSmallerHandler, scaleBiggerHandlerRemove, scaleSmallerHandlerRemove, DefaultPreviewScaleHandler} from './changeScale.js';
+import { scaleBiggerHandler, scaleSmallerHandler, scaleBiggerHandlerRemove, scaleSmallerHandlerRemove, SetDefaultPreviewScaleHandler} from './changeScale.js';
 import { addValidatorsPristine, validateFormPristine, resetValidatorsPristine, resetFields } from './addValidators.js';
 import {effectChangeHandler, effectChangeHandlerRemove, resetEffects } from './implementFilter.js';
 import { sendData } from '../api.js';
@@ -69,10 +69,9 @@ const onUploadPictureChange = () => {
 
 function closePictureForm () {
   resetFields();
-  //resetValidatorsPristine();
   editPictureFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  DefaultPreviewScaleHandler();
+  SetDefaultPreviewScaleHandler();
   uploadPictureElement.value = '';
   document.removeEventListener('keydown', onDocumentKeydown);
   resetEffects();

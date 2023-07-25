@@ -25,10 +25,10 @@ const compareCommentsAmount = (pictureA, pictureB) => {
 };
 
 const getRandomPicture = (pictures) => {
-  const result = [];
+  const results = [];
   const numbers = createRandomMassive(0, pictures.length - 1, RANDOM_PICTURES_AMOUNT);
-  numbers.forEach((number) => result.push(pictures[number]));
-  return result;
+  numbers.forEach((number) => results.push(pictures[number]));
+  return results;
 };
 
 const implementFilter = (pictures, filter) => {
