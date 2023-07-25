@@ -60,20 +60,22 @@ const onUploadPictureChange = () => {
   document.body.classList.add('modal-open');
   effectSliderContainerElement.classList.add('hidden');
   effectChangeHandler(uploadImagePreviewElement);
-  closePictureFormElement.addEventListener('click', closePictureForm);
+  closePictureFormElement.addEventListener('click', onClosePictureForm);
   document.addEventListener('keydown', onDocumentKeydown);
   uploadPictureFormElement.addEventListener('submit', onUploadPictureForm);
   scaleBiggerHandler();
   scaleSmallerHandler();
 };
 
-function closePictureForm () {
+function onClosePictureForm () {
   resetFields();
   editPictureFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   SetDefaultPreviewScaleHandler();
   uploadPictureElement.value = '';
   document.removeEventListener('keydown', onDocumentKeydown);
+  closePictureFormElement.removeEventListener('click', onClosePictureForm);
+  uploadPictureFormElement.removeEventListener('submit', onUploadPictureForm);
   resetEffects();
   effectChangeHandlerRemove();
   scaleBiggerHandlerRemove();
@@ -84,10 +86,10 @@ function onDocumentKeydown (evt) {
   if(isEscape(evt) && !evt.target.closest('.img-upload__field-wrapper') &&
   !(document.body.querySelector('.error') || document.body.querySelector('.success'))){
     evt.preventDefault();
-    closePictureForm();
+    onClosePictureForm();
   }
 }
 
 const setFormAction = () => uploadPictureElement.addEventListener('change', onUploadPictureChange);
 
-export { setFormAction, unblockSubmitButton, closePictureForm };
+export { setFormAction, unblockSubmitButton, onClosePictureForm};

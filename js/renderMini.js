@@ -7,7 +7,6 @@ const RENDER_DELAY = 500;
 
 const imgFilterElement = document.querySelector('.img-filters');
 
-
 const renderMini = () =>{
   getData()
     .then((photos) => {
