@@ -8,15 +8,15 @@ const getRandomInteger = (a,b) => {
 };
 
 const createRandomMassive = (min, max, length) => {
-  const massive = [];
+  const numbers = [];
   for (let i = 0; i < length; i++){
     let currentValue = getRandomInteger(min, max);
-    while(massive.includes(currentValue)){
+    while(numbers.includes(currentValue)){
       currentValue = getRandomInteger(min, max);
     }
-    massive.push(currentValue);
+    numbers.push(currentValue);
   }
-  return massive;
+  return numbers;
 };
 
 const showAlert = (message) => {

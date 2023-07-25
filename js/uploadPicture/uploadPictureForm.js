@@ -1,5 +1,5 @@
 import { isEscape } from '../util.js';
-import { scaleBiggerHandler, scaleSmallerHandler, scaleBiggerHandlerRemove, scaleSmallerHandlerRemove, DefaultPreviewScaleHandler} from './changeScale.js';
+import { scaleBiggerHandler, scaleSmallerHandler, scaleBiggerHandlerRemove, scaleSmallerHandlerRemove, SetDefaultPreviewScaleHandler} from './changeScale.js';
 import { addValidatorsPristine, validateFormPristine, resetValidatorsPristine, resetFields } from './addValidators.js';
 import {effectChangeHandler, effectChangeHandlerRemove, resetEffects } from './implementFilter.js';
 import { sendData } from '../api.js';
@@ -60,21 +60,22 @@ const onUploadPictureChange = () => {
   document.body.classList.add('modal-open');
   effectSliderContainerElement.classList.add('hidden');
   effectChangeHandler(uploadImagePreviewElement);
-  closePictureFormElement.addEventListener('click', closePictureForm);
+  closePictureFormElement.addEventListener('click', onClosePictureForm);
   document.addEventListener('keydown', onDocumentKeydown);
   uploadPictureFormElement.addEventListener('submit', onUploadPictureForm);
   scaleBiggerHandler();
   scaleSmallerHandler();
 };
 
-function closePictureForm () {
+function onClosePictureForm () {
   resetFields();
-  //resetValidatorsPristine();
   editPictureFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  DefaultPreviewScaleHandler();
+  SetDefaultPreviewScaleHandler();
   uploadPictureElement.value = '';
   document.removeEventListener('keydown', onDocumentKeydown);
+  closePictureFormElement.removeEventListener('click', onClosePictureForm);
+  uploadPictureFormElement.removeEventListener('submit', onUploadPictureForm);
   resetEffects();
   effectChangeHandlerRemove();
   scaleBiggerHandlerRemove();
@@ -85,10 +86,10 @@ function onDocumentKeydown (evt) {
   if(isEscape(evt) && !evt.target.closest('.img-upload__field-wrapper') &&
   !(document.body.querySelector('.error') || document.body.querySelector('.success'))){
     evt.preventDefault();
-    closePictureForm();
+    onClosePictureForm();
   }
 }
 
 const setFormAction = () => uploadPictureElement.addEventListener('change', onUploadPictureChange);
 
-export { setFormAction, unblockSubmitButton, closePictureForm };
+export { setFormAction, unblockSubmitButton, onClosePictureForm};

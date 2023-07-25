@@ -14,29 +14,29 @@ const changeSize = (percentSize) => {
   uploadImagePreviewElement.style.transform = `scale(${size})`;
 };
 
-const onSmallerScale = () => {
+const onDecreaseScale = () => {
   if (parseInt(scaleValueElement.value,10) > MIN_SCALE){
     const percentSize = parseInt(scaleValueElement.value, 10) - STEP_SCALE;
     changeSize(percentSize);
   }
 };
 
-const onBiggerScale = () => {
+const onIncreaseScale = () => {
   if (parseInt(scaleValueElement.value,10) < MAX_SCALE){
     const percentSize = parseInt(scaleValueElement.value, 10) + STEP_SCALE;
     changeSize(percentSize);
   }
 };
 
-const DefaultPreviewScaleHandler = () => {
+const SetDefaultPreviewScaleHandler = () => {
   uploadImagePreviewElement.style.transform = 'scale(1)';
   scaleValueElement.value = '100%';
 };
 
-const scaleSmallerHandler = () => scaleSmallerElement.addEventListener('click', onSmallerScale);
-const scaleSmallerHandlerRemove = () => scaleSmallerElement.removeEventListener('click', onSmallerScale);
-const scaleBiggerHandler = () => scaleBiggerElement.addEventListener('click', onBiggerScale);
-const scaleBiggerHandlerRemove = () => scaleBiggerElement.removeEventListener('click', onBiggerScale);
+const scaleSmallerHandler = () => scaleSmallerElement.addEventListener('click', onDecreaseScale);
+const scaleSmallerHandlerRemove = () => scaleSmallerElement.removeEventListener('click', onDecreaseScale);
+const scaleBiggerHandler = () => scaleBiggerElement.addEventListener('click', onIncreaseScale);
+const scaleBiggerHandlerRemove = () => scaleBiggerElement.removeEventListener('click', onIncreaseScale);
 
 
-export { scaleBiggerHandler, scaleSmallerHandler, scaleSmallerHandlerRemove, scaleBiggerHandlerRemove, DefaultPreviewScaleHandler};
+export { scaleBiggerHandler, scaleSmallerHandler, scaleSmallerHandlerRemove, scaleBiggerHandlerRemove, SetDefaultPreviewScaleHandler};
